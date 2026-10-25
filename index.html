@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#17111f">
+<title>Build Our Halloween Date 🎃</title>
+<style>
+  :root { --bg:#120f18; --panel:#211a29; --orange:#ff9a45; --lav:#d9b9ff; --muted:#c5bacd; --line:#49384f; }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; min-height:100vh; color:#fff7f0;
+    font-family: ui-rounded, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background:
+      radial-gradient(ellipse at 10% 0%, rgba(111,56,113,.35), transparent 42%),
+      radial-gradient(ellipse at 100% 20%, rgba(255,126,45,.16), transparent 35%), var(--bg);
+  }
+  .wrap { width:min(960px, 100%); margin:0 auto; padding:28px 18px 48px; }
+  header { text-align:center; padding:24px 8px 22px; }
+  .eyebrow { color:var(--orange); font-size:.78rem; letter-spacing:.22em; text-transform:uppercase; font-weight:800; }
+  h1 { font-size:clamp(2rem, 6vw, 3.6rem); line-height:1.03; margin:12px 0; letter-spacing:-.045em; }
+  h1 span { color:var(--orange); }
+  .intro { color:var(--muted); max-width:540px; margin:0 auto; line-height:1.65; font-size:1.02rem; }
+  .spark { color:var(--lav); }
+  
+  .step-section { display:none; margin-top:20px; }
+  .step-section.active { display:block; }
+  
+  .section-title { font-size:1.4rem; color:var(--orange); margin-bottom:14px; text-align:center; font-weight:700; }
+  
+  .cards { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-top:16px; }
+  .cards.two-col { grid-template-columns:repeat(2,minmax(0,1fr)); max-width:640px; margin-left:auto; margin-right:auto; }
+  
+  .card {
+    overflow:hidden; text-align:left; cursor:pointer; color:inherit; padding:0; border:1px solid var(--line);
+    border-radius:22px; background:linear-gradient(155deg, #2b2033, #1b1622 72%);
+    transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease; width:100%;
+  }
+  .card:hover { transform:translateY(-4px); border-color:var(--orange); box-shadow:0 12px 32px #0005; }
+  .card:focus-visible { outline:3px solid var(--lav); outline-offset:4px; }
+  .card.selected { border:2px solid var(--orange); box-shadow:0 0 0 3px #ff9a4525; }
+  
+  .art { min-height:130px; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+  .art span { font-size:3.8rem; filter:drop-shadow(0 10px 14px #0005); z-index:1; }
+  .card-body { padding:16px; }
+  .number { color:var(--orange); font-weight:800; font-size:.72rem; letter-spacing:.13em; text-transform:uppercase; }
+  h2 { font-size:1.12rem; line-height:1.25; margin:6px 0 8px; }
+  .desc { color:var(--muted); font-size:.88rem; line-height:1.5; margin:0 0 14px; min-height:60px; }
+  .pick { display:block; padding:10px; border-radius:10px; text-align:center; background:#ffffff0a; border:1px solid #ffffff20; font-size:.85rem; font-weight:750; }
+  .selected .pick { background:var(--orange); color:#211322; border-color:var(--orange); }
+
+  .actions { text-align:center; margin-top:28px; }
+  .btn { border:0; border-radius:12px; background:var(--orange); color:#211322; padding:13px 24px; font:inherit; font-weight:850; cursor:pointer; transition: opacity 0.2s; }
+  .btn:disabled { opacity:.4; cursor:not-allowed; }
+
+  .summary-box { background:#251b27; border:1px solid #74533f; border-radius:18px; padding:24px; max-width:600px; margin:0 auto; text-align:center; }
+  .summary-box h3 { margin-top:0; font-size:1.5rem; color:var(--orange); }
+  .summary-item { margin:10px 0; color:var(--muted); font-size:1.05rem; }
+  .summary-item span { color:#fff; font-weight:600; }
+  
+  .status { font-size:.85rem; color:var(--lav); margin-top:12px; min-height:1.3em; }
+  footer { text-align:center; color:#84778d; font-size:.76rem; padding-top:32px; }
+
+  @media (max-width:720px) { 
+    .cards, .cards.two-col { grid-template-columns:1fr; max-width:440px; margin:16px auto 0; } 
+    .desc { min-height:0; } 
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">A little Halloween adventure</div>
+    <h1>Build our <span>Halloween</span><br>Date 🎃</h1>
+    <p class="intro">Let's plan the ultimate spooky night out. <span class="spark">You get to choose how the evening goes!</span></p>
+  </header>
+
+  <main>
+    <!-- STEP 1: MAIN ACTIVITY -->
+    <section id="step1" class="step-section active">
+      <div class="section-title">Step 1: Choose the Main Event</div>
+      <div class="cards">
+        <button class="card" type="button" data-activity="Creative and fun - pumpkin carving">
+          <div class="art" style="background:linear-gradient(140deg,#663d26,#3b2114)"><span>🎃</span></div>
+          <div class="card-body">
+            <div class="number">Option 01</div>
+            <h2>Pumpkin Carving</h2>
+            <p class="desc">Get messy, get creative, and carve pumpkins together in the truck bed.</p>
+            <span class="pick">Choose this ✨</span>
+          </div>
+        </button>
+
+        <button class="card" type="button" data-activity="A nice walk">
+          <div class="art" style="background:linear-gradient(140deg,#304a3d,#142b2b)"><span>🌲</span></div>
+          <div class="card-body">
+            <div class="number">Option 02</div>
+            <h2>A Nice Walk</h2>
+            <p class="desc">Take a peaceful stroll outdoors. (Selecting this opens up location options!)</p>
+            <span class="pick">Choose this 🌙</span>
+          </div>
+        </button>
+
+        <button class="card" type="button" data-activity="Lame and boring, but safe - mini golf">
+          <div class="art" style="background:linear-gradient(140deg,#264c66,#1b2e4b)"><span>⛳</span></div>
+          <div class="card-body">
+            <div class="number">Option 03</div>
+            <h2>Mini Golf</h2>
+            <p class="desc">Lame and boring, but safe. Classic competitive fun.</p>
+            <span class="pick">Choose this 🍂</span>
+          </div>
+        </button>
+      </div>
+      <div class="actions">
+        <button class="btn" id="nextToStep2" disabled>Next Step →</button>
+      </div>
+    </section>
+
+    <!-- STEP 2: WALK LOCATION (Conditional) -->
+    <section id="step2" class="step-section">
+      <div class="section-title">Step 2: Pick Your Walking Spot</div>
+      <div class="cards two-col">
+        <button class="card" type="button" data-walk="Back Bay">
+          <div class="art" style="background:linear-gradient(140deg,#2b4c5f,#152530)"><span>🌊</span></div>
+          <div class="card-body">
+            <div class="number">Option A</div>
+            <h2>Back Bay</h2>
+            <p class="desc">Scenic waterfront views and a quiet atmosphere.</p>
+            <span class="pick">Pick Back Bay 🌊</span>
+          </div>
+        </button>
+
+        <button class="card" type="button" data-walk="Botanical Gardens">
+          <div class="art" style="background:linear-gradient(140deg,#3b5c35,#1d3019)"><span>🌿</span></div>
+          <div class="card-body">
+            <div class="number">Option B</div>
+            <h2>Botanical Gardens</h2>
+            <p class="desc">Wander through gorgeous plant collections and paths.</p>
+            <span class="pick">Pick Botanical Gardens 🌷</span>
+          </div>
+        </button>
+      </div>
+      <div class="actions">
+        <button class="btn" id="backTo1" style="background:transparent; color:var(--muted); border:1px solid var(--line); margin-right:10px;">← Back</button>
+        <button class="btn" id="nextToStep3" disabled>Next Step →</button>
+      </div>
+    </section>
+
+    <!-- STEP 3: FOOD CHOICE -->
+    <section id="step3" class="step-section">
+      <div class="section-title">Step 3: Grub Time (Choose Food)</div>
+      <div class="cards" style="grid-template-columns:repeat(2,minmax(0,1fr)); max-width:700px; margin:0 auto;">
+        <button class="card" type="button" data-food="Mexican">
+          <div class="art" style="background:linear-gradient(140deg,#663526,#381a12)"><span>🌮</span></div>
+          <div class="card-body">
+            <div class="number">Option 01</div>
+            <h2>Mexican</h2>
+            <p class="desc">Tacos, chips, salsa, and great vibes.</p>
+            <span class="pick">I want Mexican 🌮</span>
+          </div>
+        </button>
+
+        <button class="card" type="button" data-food="Sushi">
+          <div class="art" style="background:linear-gradient(140deg,#265566,#142c38)"><span>🍣</span></div>
+          <div class="card-body">
+            <div class="number">Option 02</div>
+            <h2>Sushi</h2>
+            <p class="desc">Rolls, sashimi, and tasty bites.</p>
+            <span class="pick">I want Sushi 🍣</span>
+          </div>
+        </button>
+
+        <button class="card" type="button" data-food="Texas Roadhouse">
+          <div class="art" style="background:linear-gradient(140deg,#5c3324,#331a12)"><span>🥩</span></div>
+          <div class="card-body">
+            <div class="number">Option 03</div>
+            <h2>Texas Roadhouse</h2>
+            <p class="desc">Steaks, rolls with cinnamon butter, and peanuts.</p>
+            <span class="pick">Texas Roadhouse 🥩</span>
+          </div>
+        </button>
+
+        <button class="card" type="button" data-food="Fast food and talk">
+          <div class="art" style="background:linear-gradient(140deg,#5e5324,#332d12)"><span>🍟</span></div>
+          <div class="card-body">
+            <div class="number">Option 04</div>
+            <h2>Fast Food & Talk</h2>
+            <p class="desc">Dude, idec this is doing too much—let's just grab fast food and talk.</p>
+            <span class="pick">Keep it simple 🍔</span>
+          </div>
+        </button>
+      </div>
+      <div class="actions">
+        <button class="btn" id="backToPrev" style="background:transparent; color:var(--muted); border:1px solid var(--line); margin-right:10px;">← Back</button>
+        <button class="btn" id="nextToReview" disabled>Review Date →</button>
+      </div>
+    </section>
+
+    <!-- STEP 4: REVIEW & SUBMIT -->
+    <section id="step4" class="step-section">
+      <div class="summary-box">
+        <h3>Your Custom Date Plan 🎃</h3>
+        <div class="summary-item">Activity: <span id="sumActivity">-</span></div>
+        <div class="summary-item" id="sumWalkRow">Walking Spot: <span id="sumWalk">-</span></div>
+        <div class="summary-item">Food: <span id="sumFood">-</span></div>
+        
+        <div class="actions" style="margin-top:20px;">
+          <button class="btn" id="confirmFinal">Lock In Entire Date 🦇</button>
+        </div>
+        <div class="status" id="status" role="status"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>Made for one spooky little adventure · 🎃 🦇 🍂</footer>
+</div>
+
+<script>
+  // Paste your Google Apps Script Web App URL below:
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyrZR_WLPk-UYHFCypuDoh6b1KIaHncupq49CMfzd4zPUj1oS5feY4_fRpxMhsL043s/exec";
+
+  let dateData = {
+    activity: "",
+    walkLocation: "N/A",
+    food: ""
+  };
+
+  // Elements
+  const step1 = document.getElementById("step1");
+  const step2 = document.getElementById("step2");
+  const step3 = document.getElementById("step3");
+  const step4 = document.getElementById("step4");
+
+  // Step 1 logic
+  const actCards = step1.querySelectorAll(".card");
+  const nextToStep2Btn = document.getElementById("nextToStep2");
+
+  actCards.forEach(card => {
+    card.addEventListener("click", () => {
+      actCards.forEach(c => c.classList.remove("selected"));
+      card.classList.add("selected");
+      dateData.activity = card.dataset.activity;
+      nextToStep2Btn.disabled = false;
+    });
+  });
+
+  nextToStep2Btn.addEventListener("click", () => {
+    step1.classList.remove("active");
+    if (dateData.activity === "A nice walk") {
+      step2.classList.add("active");
+    } else {
+      dateData.walkLocation = "N/A (Skipped)";
+      step3.classList.add("active");
+    }
+  });
+
+  // Step 2 logic (Walk)
+  const walkCards = step2.querySelectorAll(".card");
+  const nextToStep3Btn = document.getElementById("nextToStep3");
+  const backTo1Btn = document.getElementById("backTo1");
+
+  walkCards.forEach(card => {
+    card.addEventListener("click", () => {
+      walkCards.forEach(c => c.classList.remove("selected"));
+      card.classList.add("selected");
+      dateData.walkLocation = card.dataset.walk;
+      nextToStep3Btn.disabled = false;
+    });
+  });
+
+  backTo1Btn.addEventListener("click", () => {
+    step2.classList.remove("active");
+    step1.classList.add("active");
+  });
+
+  nextToStep3Btn.addEventListener("click", () => {
+    step2.classList.remove("active");
+    step3.classList.add("active");
+  });
+
+  // Step 3 logic (Food)
+  const foodCards = step3.querySelectorAll(".card");
+  const nextToReviewBtn = document.getElementById("nextToReview");
+  const backToPrevBtn = document.getElementById("backToPrev");
+
+  foodCards.forEach(card => {
+    card.addEventListener("click", () => {
+      foodCards.forEach(c => c.classList.remove("selected"));
+      card.classList.add("selected");
+      dateData.food = card.dataset.food;
+      nextToReviewBtn.disabled = false;
+    });
+  });
+
+  backToPrevBtn.addEventListener("click", () => {
+    step3.classList.remove("active");
+    if (dateData.activity === "A nice walk") {
+      step2.classList.add("active");
+    } else {
+      step1.classList.add("active");
+    }
+  });
+
+  nextToReviewBtn.addEventListener("click", () => {
+    document.getElementById("sumActivity").textContent = dateData.activity;
+    const walkRow = document.getElementById("sumWalkRow");
+    if (dateData.activity === "A nice walk") {
+      walkRow.style.display = "block";
+      document.getElementById("sumWalk").textContent = dateData.walkLocation;
+    } else {
+      walkRow.style.display = "none";
+    }
+    document.getElementById("sumFood").textContent = dateData.food;
+
+    step3.classList.remove("active");
+    step4.classList.add("active");
+  });
+
+  // Final submission
+  const confirmFinalBtn = document.getElementById("confirmFinal");
+  const status = document.getElementById("status");
+
+  confirmFinalBtn.addEventListener("click", () => {
+    if (!GOOGLE_SCRIPT_URL.startsWith("https://script.google.com/")) {
+      status.textContent = "Demo mode: Add your Google Apps Script URL to save selections.";
+      return;
+    }
+
+    confirmButtonDisabled = true;
+    confirmFinalBtn.textContent = "Locking in your date...";
+    status.textContent = "Sending choices to Jake...";
+
+    const body = new URLSearchParams({
+      activity: dateData.activity,
+      walkLocation: dateData.walkLocation,
+      food: dateData.food
+    });
+
+    fetch(GOOGLE_SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+      body: body.toString()
+    }).then(() => {
+      confirmFinalBtn.textContent = "Date Locked In! 🎃";
+      status.textContent = "All set! Jake has been notified of your selections.";
+    }).catch(() => {
+      status.textContent = "Something went wrong. Try again.";
+      confirmFinalBtn.disabled = false;
+      confirmFinalBtn.textContent = "Try again";
+    });
+  });
+</script>
+</body>
+</html>
